@@ -1,0 +1,21 @@
+pip install geemap
+import geemap
+import ee
+Map = geemap.Map()
+
+def filter_wdpa(category, min_area_thr):
+  wdpa = ee.FeatureCollection("WCMC/WDPA/current/polygons")
+  Map.addLayer(wdpa)
+  wdpa_class = ee.List(category)
+  polygons = wdpa.filter(ee.Filter.inList('IUCN_CAT',wdpa_class))
+  polygons = polygons.filter(ee.Filter.neq("MARINE", "2"))
+  polygons = polygons.filter(ee.Filter.gte("GIS_AREA", min_area_thr))
+  return polygons
+
+cat_Ia = filter_wdpa(['Ia','Ib','II'],0)
+
+reg = cat_Ia.reduceColumns(ee.Reducer.mean(),['diff'])
+sample_points = ee.FeatureCollection.randomPoints(reg, 1020, 0, 1)
+Map.setCenter(-111.802, 40.979, 7)
+Map.addLayer(cat_Ia)
+Map.addLayer(sample_points)
