@@ -1,0 +1,7 @@
+africa = cat_Ia.filter(ee.Filter.eq('CONTINENT','Africa'));
+asia = cat_Ia.filter(ee.Filter.eq('CONTINENT','Asia'));
+australia = cat_Ia.filter(ee.Filter.eq('CONTINENT','Australia'));
+europe = cat_Ia.filter(ee.Filter.eq('CONTINENT','Europe'));
+nam = cat_Ia.filter(ee.Filter.eq('CONTINENT','North America'));
+oceania = cat_Ia.filter(ee.Filter.eq('CONTINENT','Oceania'));
+sam = cat_Ia.filter(ee.Filter.eq('CONTINENT','South America'))
